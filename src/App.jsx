@@ -1,19 +1,24 @@
-import Navbar from "./COMPONENTS/Navbar";
-import Hero from "./COMPONENTS/hero";
-import HomeCards from "./COMPONENTS/HomeCards";
-import Joblistings from "./COMPONENTS/joblistings";
-import ViewAll from "./COMPONENTS/viewAll";
+import {Route, createBrowserRouter, createRoutesFromElements, RouterProvider} from 'react-router-dom';
+
+import Homepage from './pages/Homepage';
+import MainLayouts from './layouts/MainLayouts';
+import JobsPage from './pages/JobsPage';
+import NotFoundPage from './pages/NotFoundPage';
+import JobPage, {jobLoader} from './pages/JobPage';
+
+const router = createBrowserRouter (
+    createRoutesFromElements(
+      <Route path='/' element={<MainLayouts/>}>
+      <Route index element = {<Homepage/> }/>
+      <Route path ='/jobs' element = {<JobsPage/> }/>
+      <Route path ='/jobs/:id' element = {<JobPage/> } loader = {jobLoader}/>
+      <Route path ='*' element = {<NotFoundPage/> }/>
+  </Route>
+    )
+);
 
 const App = () => {
-  return (
-  <>
-  <Navbar/>
-  <Hero/>
-  <HomeCards/>
-  <Joblistings/>
-  <ViewAll/>
-    </>
-  );
+  return < RouterProvider router = {router} />;
 };
 
 export default App;
